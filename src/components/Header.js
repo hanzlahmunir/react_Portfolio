@@ -1,5 +1,8 @@
 // src/components/Header.js
 import React, { useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useThemeContext } from '../context/ThemeContext';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 import {
     AppBar,
     Toolbar,
@@ -10,10 +13,10 @@ import {
     MenuItem,
     Box
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = () => {
     const [anchorEl, setAnchorEl] = useState(null);
+    const { toggleTheme, mode } = useThemeContext();
 
     const handleAvatarClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -30,9 +33,18 @@ const Header = () => {
                     Hanzlah Munir
                 </Typography>
                 <Box>
-                    <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
-                        <Avatar alt="Hanzlah" src="/profile.jpg" />
-                    </IconButton>
+
+                    <Box display="flex" alignItems="center" gap={2}>
+                        <IconButton onClick={toggleTheme} sx={{ color: 'inherit' }}>
+                            {mode === 'light' ? <Brightness4 /> : <Brightness7 />}
+                        </IconButton>
+
+                        <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
+                            <Avatar alt="Hanzlah" src="/profile.jpg" />
+                        </IconButton>
+                    </Box>
+
+
                     <Menu
                         anchorEl={anchorEl}
                         open={Boolean(anchorEl)}
